@@ -1,14 +1,14 @@
-# coding: utf8
+# coding: utf-8
 import requests
 import grequests
 from bs4 import BeautifulSoup as soup
 import re
 import math
 from functools import reduce
+from utils import parse_url
 
 
 class CNKI_refs(object):
-
     def __init__(self, url, CurDBCode='CRLDENG'):
         """
         CRLDENG: 外文参考文献
@@ -73,21 +73,11 @@ def get_urls(fname):
     with open('{}/brief.html'.format(fname), 'r', encoding='utf8') as f:
         html = f.read()
 
-    matchs = re.findall(
-        r'(?<=href=\").+?(?=\")|(?<=href=\').+?(?=\')', html)
+    matchs = re.findall(r'(?<=href=\").+?(?=\")|(?<=href=\').+?(?=\')', html)
 
     urls = [parse_url(url) for url in matchs if 'detail' in url]
 
     return urls[::2]
-
-
-def parse_url(url):
-    return url.replace('amp;', '').replace(' ', '')
-
-
-def replace_name(name):
-    return name.replace('<sub>', '').replace(
-        '</sub>', '').replace('/', '-')
 
 
 if __name__ == '__main__':
