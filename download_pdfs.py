@@ -101,18 +101,18 @@ if __name__ == '__main__':
     password = ''
 
     # 搜索得到url
-    # text = 'TEST'
-    # search = Search(method='Title', category='result', batch=False)
-    # url_lst = [search.run(text)]
+    text = 'TEST'
+    search = Search(method='Title', category='result')
+    url_lst = [search.run(text, batch=False)]
 
     # 根据CNKI导出的endnote文件（txt），解析标题，并搜索url，可能搜索不到标题
     # endnote = ''
     # with open('{}.txt'.format(endnote), 'r', encoding='utf-8') as f:
     #     data = f.read()
     # title_lst = re.findall(r'%T (.+)\n', data)
-    # search = Search(method='Title', category='result', batch=False)
+    # search = Search(method='Title', category='result')
     # url_lst = [
-    #     search.run(text) for title in title_lst
+    #     search.run(text, batch=False) for title in title_lst
     # ]
 
     # 手动设定
@@ -125,7 +125,7 @@ if __name__ == '__main__':
     # url_lst = get_urls(fname)
 
     # 未连接校园网的情况
-    # login_download(username, password, url_lst)
+    login_download(username, password, url_lst)
 
     # 连接校园网的情况
     # download(url_lst)

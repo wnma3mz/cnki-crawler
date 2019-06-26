@@ -6,11 +6,7 @@ import requests
 
 
 class Search(object):
-    def __init__(self,
-                 method='Theme',
-                 order=str(1),
-                 category='index',
-                 batch=False):
+    def __init__(self, method='Theme', order=str(1), category='index'):
         """
         @params method: 搜索方法        
             'Content': 全文
@@ -28,7 +24,6 @@ class Search(object):
             'index': 学位论文
             'result': 全部
             。。。
-        @params batch: 是否批量下载，默认否
         """
         self.method = method
         self.order = order
@@ -63,9 +58,10 @@ class Search(object):
         response = requests.post(url, headers=self.headers, data=data)
         return response
 
-    def run(self, text):
+    def run(self, text, batch=False):
         """
         @params text: 搜索的文本
+        @params batch: 是否批量下载，默认否
 
         @return 需要下载的海外知网的链接
         """
@@ -123,7 +119,7 @@ class Search(object):
         """
         response = requests.get(url).text
         try:
-            cajdownload_url = caj_url.findall(response)[0]
+            cajdownload_url = self.caj_url.findall(response)[0]
         except:
             return 'Failed'
         return cajdownload_url
